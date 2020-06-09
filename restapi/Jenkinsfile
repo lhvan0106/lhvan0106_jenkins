@@ -8,17 +8,13 @@ node {
     remote.password = 'Qwert!2345'
 
     stage('Build') {
-        steps {
-            dir("restapi") {
-                bat "mvn clean install -Dmaven.test.skip=true"
-            }
+        dir("restapi") {
+            bat "mvn clean install -Dmaven.test.skip=true"
         }
     }
 
     stage('Copy other location') { 
-        steps {
-            bat "copy .\\restapi\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
-        }
+        bat "copy .\\restapi\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
     }
 
     // stage('Copy to server') {
