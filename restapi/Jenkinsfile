@@ -7,28 +7,25 @@ node {
     remote.user = 'ocboper'
     remote.password = 'Qwert!2345'
 
-    stages {
-        
-        stage('Build') {
-            steps {
-                dir("restapi") {
-                    bat "mvn clean install -Dmaven.test.skip=true"
-                }
-            }
-        }
-
-        stage('Copy other location') { 
-            steps {
-                bat "copy .\\restapi\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
-            }
-        }
-
-         stage('Copy to server') {
-            // phải cài plugin SSH Pipeline Steps mới chạy được script này
-            sshCommand remote: remote, command: "lsb_release -a"
-            dir('.\\restapi\\target') {
-                sshPut remote: remote, from: 'restapi-0.0.1-SNAPSHOT.jar', into: '/home/ocboper/jenskin'
+    stage('Build') {
+        steps {
+            dir("restapi") {
+                bat "mvn clean install -Dmaven.test.skip=true"
             }
         }
     }
+
+    stage('Copy other location') { 
+        steps {
+            bat "copy .\\restapi\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
+        }
+    }
+
+    // stage('Copy to server') {
+    //     // phải cài plugin SSH Pipeline Steps mới chạy được script này
+    //     sshCommand remote: remote, command: "lsb_release -a"
+    //     dir('.\\restapi\\target') {
+    //         sshPut remote: remote, from: 'restapi-0.0.1-SNAPSHOT.jar', into: '/home/ocboper/jenskin'
+    //     }
+    // }
 }
