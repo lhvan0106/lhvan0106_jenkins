@@ -1,5 +1,14 @@
 pipeline {
     agent any 
+
+    def remote = [:]
+    remote.name = 'dev'
+    remote.host = '10.96.23.230'
+    remote.port = 22
+    remote.allowAnyHosts = true
+    remote.user = 'ocboper'
+    remote.password = 'Qwert!2345'
+
     stages {
         
         stage('Build') {
@@ -10,9 +19,17 @@ pipeline {
             }
         }
 
-        stage('Copy File') { 
+        stage('Copy other location') { 
             steps {
                 bat "copy .\\restapi\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
+            }
+        }
+
+         stage('Copy to server') {
+            // phải cài plugin SSH Pipeline Steps mới chạy được script này
+            sshCommand remote: remote, command: "lsb_release -a"
+            dir('.\\restapi\\target') {
+                sshPut remote: remote, from: 'restapi-0.0.1-SNAPSHOT.jar', into: '/home/ocboper/jenskin'
             }
         }
     }
