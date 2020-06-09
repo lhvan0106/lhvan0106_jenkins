@@ -2,7 +2,7 @@ node {
     def remote = [:]
     remote.name = 'dev'
     remote.host = '10.96.23.230'
-    remote.port = 22
+    // remote.port = 22
     remote.allowAnyHosts = true
     remote.user = 'ocboper'
     remote.password = 'Qwert!2345'
