@@ -3,11 +3,15 @@ pipeline {
     stages {
         
         stage('Build') {
-            bat "mvn clean install -DskipTests"
+            steps {
+                bat "mvn clean install -DskipTests"
+            }
         }
 
         stage('Copy File') { 
-            bat "copy .\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
+            steps {
+                bat "copy .\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
+            }
         }
     }
 }
