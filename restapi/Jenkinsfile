@@ -1,19 +1,24 @@
 pipeline {
-    agent any
+    agent any 
     stages {
+
+        stage('Pull git') {
+            git branch: "master", url: 'https://github.com/lhvan0106/lhvan0106_jenkins.git'
+        }
+        
         stage('Build') {
-            steps {
-                //
+            if (isUnix()) {
+                sh "echo $JAVA_HOME"
+                sh "mvn clean install -DskipTests"
+            } else {
+                bat "echo %JAVA_HOME%"
+                bat "mvn clean install -DskipTests"
             }
         }
-        stage('Test') {
+
+        stage('Copy File') { 
             steps {
-                //
-            }
-        }
-        stage('Deploy') {
-            steps {
-                //
+                bat "copy .\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
             }
         }
     }
