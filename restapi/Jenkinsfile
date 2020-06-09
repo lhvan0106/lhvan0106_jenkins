@@ -7,19 +7,11 @@ pipeline {
         }
         
         stage('Build') {
-            if (isUnix()) {
-                sh "echo $JAVA_HOME"
-                sh "mvn clean install -DskipTests"
-            } else {
-                bat "echo %JAVA_HOME%"
-                bat "mvn clean install -DskipTests"
-            }
+            bat "mvn clean install -DskipTests"
         }
 
         stage('Copy File') { 
-            steps {
-                bat "copy .\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
-            }
+            bat "copy .\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
         }
     }
 }
