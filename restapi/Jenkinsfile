@@ -4,7 +4,7 @@ pipeline {
         
         stage('Build') {
             steps {
-                dir("lhvan0106_jenkins\\restapi") {
+                dir("restapi") {
                     bat "mvn clean install -Dmaven.test.skip=true"
                 }
             }
@@ -12,7 +12,7 @@ pipeline {
 
         stage('Copy File') { 
             steps {
-                bat "copy .\\lhvan0106_jenkins\\restapi\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
+                bat "copy .\\restapi\\target\\restapi-0.0.1-SNAPSHOT.jar E:\\restapi.jar"
             }
         }
     }
