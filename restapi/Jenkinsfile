@@ -1,6 +1,4 @@
-pipeline {
-    agent any 
-
+node {
     def remote = [:]
     remote.name = 'dev'
     remote.host = '10.96.23.230'
