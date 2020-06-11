@@ -31,5 +31,6 @@ node {
 
     stage('Deploy') {
         sshCommand remote: remote, command: "sh /home/lhvan0106/restapi/run-restapi.sh"
+        sshCommand remote: remote, command: "exit"
     }
 }
