@@ -28,4 +28,8 @@ node {
             sshPut remote: remote, from: 'restapi-0.0.1-SNAPSHOT.jar', into: '/home/lhvan0106/restapi'
         }
     }
+
+    stage('Deploy') {
+        sshCommand remote: remote, command: "sh /home/lhvan0106/restapi/run-restapi.sh"
+    }
 }
