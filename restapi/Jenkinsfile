@@ -1,11 +1,16 @@
 node {
     def remote = [:]
     remote.name = 'dev'
-    remote.host = '10.96.23.230'
+    remote.host = '192.168.91.128'
     remote.port = 22
     remote.allowAnyHosts = true
-    remote.user = 'ocboper'
-    remote.password = 'Qwert!2345'
+    remote.user = 'lhvan0106'
+    remote.password = '0CanPass'
+
+    stage('Pull git') {
+        // credentialsId khi nhập username / password Jenkins tự tạo, kiểm tra Jenkins > Credentials
+        git branch: "master", url: 'https://github.com/lhvan0106/lhvan0106_jenkins.git'
+    }
 
     stage('Build') {
         dir("restapi") {
@@ -20,7 +25,7 @@ node {
     stage('Copy to server') {
         sshCommand remote: remote, command: "lsb_release -a"
         dir('.\\restapi\\target') {
-            sshPut remote: remote, from: 'restapi-0.0.1-SNAPSHOT.jar', into: '/home/ocboper/jenskin'
+            sshPut remote: remote, from: 'restapi-0.0.1-SNAPSHOT.jar', into: '/home/lhvan0106/restapi'
         }
     }
 }
