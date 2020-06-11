@@ -1,0 +1,1 @@
+nohup ./run-restapi.sh > ./restapi.out &
